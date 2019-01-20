@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SHARED>
+  <WebDriver>chrome</WebDriver> <!-- Usage: ie,chromedriver  (Can handle browser type)-->
+  <ElementTimeOut>20</ElementTimeOut> <!-- Implicit wait-->
+  <PageLoadOut>60</PageLoadOut>  <!-- Page wait Time-->
+  <Url>https://www.abhibus.com/</Url>
+
+  <TooTip>abhibus.com - India's Fastest Online bus ticket booking site</TooTip>
+  <Source>Hyderabad</Source>
+  <Destination>Bangalore</Destination> <!-- Bangalore-->
+  <Boarding>L.B Nagar</Boarding>
+  <ReturnBoarding>Majestic</ReturnBoarding>
+</SHARED>
