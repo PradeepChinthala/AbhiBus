@@ -23,10 +23,6 @@ namespace Planit.Automation.Selenium.Pages
 
         public JourneyDetails GetOnWardsDetails()
         {
-            //var result = new List<string>();
-            //result.Add(onWardsJourney.FindElement(By.XPath("//div[1]/h3/strong")).Text.Trim().Split(' ')[0]);
-            //result.Add(onWardsJourney.FindElement(By.XPath("//div[1]/p[2]/strong")).Text.Trim());
-            //return result;
             var details = new JourneyDetails();
             details.RoutName = onWardsJourney.FindElement(By.XPath("//div[1]/h3/strong")).Text.Trim().Split(' ')[0];
             details.Boarding = onWardsJourney.FindElement(By.XPath("//div[1]/p[2]/strong")).Text.Trim();
@@ -35,11 +31,7 @@ namespace Planit.Automation.Selenium.Pages
         }
 
         public JourneyDetails GetReturnDetails()
-        {
-            //var result = new List<string>();
-            //result.Add(returnJourney.FindElement(By.XPath("//div[1]/h3/strong")).Text.Trim().Split(' ')[0]);
-            //result.Add(returnJourney.FindElement(By.XPath("//div[1]/p[2]/strong")).Text.Trim());
-            //return result;
+        {            
             var details = new JourneyDetails();
             details.RoutName = returnJourney.FindElement(By.XPath("//div[1]/h3/strong")).Text.Trim().Split(' ')[0];
             details.Boarding = returnJourney.FindElement(By.XPath("//div[1]/p[2]/strong")).Text.Trim();

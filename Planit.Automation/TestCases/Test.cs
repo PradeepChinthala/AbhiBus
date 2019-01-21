@@ -63,6 +63,9 @@ namespace Planit.Automation.TeseCases
                 Console.WriteLine($"** Total Fair Amount:[{TotalFiar}] Matched with SumFiar:[{SumFair}] **");
 
             }, "Validate Payment Details on Payment Page");
+
+
+            // Log display on OUTPUT window
         }
 
     }

@@ -22,6 +22,8 @@ namespace Planit.Automation.Selenium.Pages
             actions = new Actions(driver);
             js = (IJavaScriptExecutor)driver;
         }
+
+        // Wait Seconds can be changed in the runtime based on the requirement by default it is 20
         public void Wait<TResult>(Func<IWebDriver, TResult> condition, int seconds = 20)
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
@@ -48,14 +50,18 @@ namespace Planit.Automation.Selenium.Pages
             }
         }
 
+        // To Overcome Scree overlay issue
         protected void ScreenOverlay()
         {
             Wait(ExpectedConditions.InvisibilityOfElementLocated(By.XPath("//div[@class='subpage-content search-subpage-content']/span")));
         }
+
+        // To Overcome StaleElementReferenceException issue
         public IWebElement staleElement(By by)
         {
             try
             {
+                Wait(ExpectedConditions.ElementExists(by));
                 return driver.FindElement(by);
             }
             catch (StaleElementReferenceException e)
@@ -64,16 +70,23 @@ namespace Planit.Automation.Selenium.Pages
             }            
         }
 
-        protected void SelectDropDown(IWebElement element, string option)
+        protected void SelectDropDown(IWebElement element, string option,ref string opt)
         {
+            bool found = false;
             var options = element.FindElements(By.TagName("option"));
             foreach (var a in options)
             {
                 if (a.Text.Contains(option))
                 {
                     a.Click();
+                    found = true;
                     break;
                 }
+            }
+            if (!found)
+            {
+                options[2].Click();
+                opt = options[2].Text.Split('-')[0];
             }
         }
     }

@@ -30,13 +30,10 @@ namespace Planit.Automation.Selenium.Pages
         [FindsBy(How = How.XPath, Using = "//div[@class='ui-datepicker-group ui-datepicker-group-first']")]
         private IWebElement datePicketFirst = null;
 
-        //[FindsBy(How = How.XPath, Using = "//div[@class='ui-datepicker-group ui-datepicker-group-last']//td[@data-handler='selectDay']")]
-        //private IList<IWebElement> datePickerLast = null;
-
-
         string listPattern = "//li[text()='{0}']";
         string dateSelection = "//td[@data-handler='selectDay']/a[text()='{0}']";
 
+        // Move to Element and The Title
         public string MoveGetToolTip()
         {
             //Wait(ExpectedConditions.ElementIsVisible(By.CssSelector(".mainheader div a img")));
@@ -44,34 +41,36 @@ namespace Planit.Automation.Selenium.Pages
             return toolTip.GetAttribute("title").ToString();
         }
 
+
+        // Search for bus
         public void EnterSearch(string source, string destination)
         {
             this.source.SendKeys(source);
-            driver.FindElement(By.XPath(string.Format(listPattern, Parameter.Get<string>("Source")))).Click();
+            driver.FindElement(By.XPath(string.Format(listPattern, Parameter.Get<string>("Source")))).Click();  // Select option From the Bootstrap Dropdown
             this.destination.SendKeys(destination);
-            driver.FindElement(By.XPath(string.Format(listPattern, Parameter.Get<string>("Destination")))).Click();
+            driver.FindElement(By.XPath(string.Format(listPattern, Parameter.Get<string>("Destination")))).Click(); // Select option From the Bootstrap Dropdown
 
             datepicker1.Click();
             var getCurrentDate = Convert.ToInt32(datePicketFirst.FindElement(By.XPath("//td[contains(@class,'ui-datepicker-current-day')]/a")).Text);
-            datePicketFirst.FindElement(By.XPath(string.Format(dateSelection, getCurrentDate + 2))).Click();
+            datePicketFirst.FindElement(By.XPath(string.Format(dateSelection, getCurrentDate + 2))).Click();  // Date Of Journey with Addtion (2+Currentdate)
 
 
             datepicker2.Click();
-            datePicketFirst.FindElement(By.XPath(string.Format(dateSelection, getCurrentDate + 4))).Click();
+            datePicketFirst.FindElement(By.XPath(string.Format(dateSelection, getCurrentDate + 4))).Click(); // Date Of Return with Addtion (4+Currentdate)
 
             searchButton.Click();
             
-            // Work Around If search fail
-            if (FindBy(By.CssSelector("a.icosearch")))
-            {
-                //Create Date Pattern
-                var currentDate = System.DateTime.Now;
-                string journeyDate = currentDate.AddDays(2).ToString("dd-MM-yyyy");
-                string returnDate = currentDate.AddDays(3).ToString("dd-MM-yyyy");
+            //// Work Around If search fail
+            //if (FindBy(By.CssSelector("a.icosearch")))
+            //{
+            //    //Create Date Pattern
+            //    var currentDate = System.DateTime.Now;
+            //    string journeyDate = currentDate.AddDays(2).ToString("dd-MM-yyyy");
+            //    string returnDate = currentDate.AddDays(3).ToString("dd-MM-yyyy");
 
-                string Url = $"{driver.Url}bus_search/{Parameter.Get<string>("Source")}/3/{Parameter.Get<string>("Destination")}/7/{journeyDate}/R/{returnDate}";
-                driver.Navigate().GoToUrl(Url);
-            }
+            //    string Url = $"{driver.Url}bus_search/{Parameter.Get<string>("Source")}/3/{Parameter.Get<string>("Destination")}/7/{journeyDate}/R/{returnDate}";
+            //    driver.Navigate().GoToUrl(Url);
+            //}
         }
     }
 }
