@@ -1,13 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using Planit.Automation.Parameters;
 using Planit.Automation.Selenium;
 using Planit.Automation.Selenium.Pages;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
+using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
+using AventStack.ExtentReports.Reporter.Configuration;
+using NUnit.Framework.Interfaces;
+using System.IO;
 
 namespace Planit.Automation.TestCases
 {
@@ -19,6 +21,10 @@ namespace Planit.Automation.TestCases
         private HomePage _homePage;
         private SearchPage _searchPage;
         private PaymentPage _paymentPage;
+
+        protected static ExtentReports extent;
+        protected static ExtentHtmlReporter htmlReporter;
+        protected static ExtentTest test;
         #endregion
 
         #region Properties
@@ -52,9 +58,33 @@ namespace Planit.Automation.TestCases
         #endregion
 
         #region Pre-Requisit
-        [TestInitialize]
+        [OneTimeSetUp]
+        public void SetupReporting()
+        {
+            string directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.Replace(@"bin\Debug\","") + @"Reports\report.html");
+            htmlReporter = new ExtentHtmlReporter(directory);
+
+            htmlReporter.Config.Theme = Theme.Dark;
+            htmlReporter.Config.DocumentTitle = "Document";
+            htmlReporter.Config.ReportName = "Test Reuslt Report";
+
+            /*htmlReporter.Configuration().JS = "$('.brand-logo').text('test image').prepend('<img src=@"file:///D:\Users\jloyzaga\Documents\FrameworkForJoe\FrameworkForJoe\Capgemini_logo_high_res-smaller-2.jpg"> ')";*/
+            htmlReporter.Config.JS = "$('.brand-logo').text('').append('<img src=D:\\Users\\jloyzaga\\Documents\\FrameworkForJoe\\FrameworkForJoe\\Capgemini_logo_high_res-smaller-2.jpg>')";
+            extent = new ExtentReports();
+            extent.AttachReporter(htmlReporter);
+        }
+
+        [OneTimeTearDown]
+        public void GenerateReport()
+        {
+            extent.Flush();
+        }
+
+        [SetUp]
         public void Initialize()
         {
+            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+
             // Collecting the Parmaeters
             /// <param name="fileName">Name of the parameter xml file.</param>
             /// <param name="criteria">IXmlParameterOptions instance. Provides sections that need to be collected from provided parameter xml file.</param>
@@ -70,9 +100,32 @@ namespace Planit.Automation.TestCases
         #endregion
 
         #region CleanUp
-        [TestCleanup]
+        [TearDown]
         public void CleanUp()
-        {
+        { 
+            var status = TestContext.CurrentContext.Result.Outcome.Status;
+            var stacktrace = string.IsNullOrEmpty(TestContext.CurrentContext.Result.StackTrace)
+                    ? ""
+                    : string.Format("{0}", TestContext.CurrentContext.Result.StackTrace);
+            Status logstatus;
+
+            switch (status)
+                {
+                case TestStatus.Failed:
+                    logstatus = Status.Fail;
+                    break;
+                case TestStatus.Inconclusive:
+                    logstatus = Status.Warning;
+                    break;
+                case TestStatus.Skipped:
+                    logstatus = Status.Skip;
+                    break;
+                default:
+                    logstatus = Status.Pass;
+                    break;
+                }
+
+            test.Log(logstatus, "Test ended with " + logstatus + stacktrace);
             if (driver != null)
                 driver.Quit();
         }
@@ -86,7 +139,7 @@ namespace Planit.Automation.TestCases
                 if (_exception==null)
                 {
                     action();
-                    Console.WriteLine("Step : "+stepInfo);
+                    test.Log(Status.Pass, "Step : " + stepInfo);
                 }
             }
             catch(Exception e)
@@ -104,7 +157,7 @@ namespace Planit.Automation.TestCases
                 if (_exception == null)
                 {
                     action(parmaeter);
-                    Console.WriteLine("Step : " + stepInfo);
+                    test.Log(Status.Pass, "Step : " + stepInfo);
                 }
             }
             catch (Exception e)
@@ -121,7 +174,7 @@ namespace Planit.Automation.TestCases
                 if (_exception == null)
                 {
                     action(parmaeter1, parmaeter2);
-                    Console.WriteLine("Step : " + stepInfo);
+                    test.Log(Status.Pass, "Step : " + stepInfo);
                 }
             }
             catch (Exception e)
