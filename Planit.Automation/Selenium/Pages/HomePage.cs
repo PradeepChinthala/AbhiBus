@@ -52,6 +52,9 @@ namespace Planit.Automation.Selenium.Pages
 
             datepicker1.Click();
             var getCurrentDate = Convert.ToInt32(datePicketFirst.FindElement(By.XPath("//td[contains(@class,'ui-datepicker-current-day')]/a")).Text);
+            if (getCurrentDate + 2 > 30)
+                getCurrentDate = 1;
+
             datePicketFirst.FindElement(By.XPath(string.Format(dateSelection, getCurrentDate + 2))).Click();  // Date Of Journey with Addtion (2+Currentdate)
 
 

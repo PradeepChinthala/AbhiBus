@@ -37,19 +37,6 @@ namespace Planit.Automation.Selenium.Pages
             actions.MoveToElement(element).Build().Perform();
         }
 
-        protected bool FindBy(By by)
-        {            
-            try
-            {   
-                Wait(ExpectedConditions.ElementExists(by),1);
-                return true;
-            }           
-            catch
-            {
-                return false;
-            }
-        }
-
         // To Overcome Scree overlay issue
         protected void ScreenOverlay()
         {
