@@ -24,7 +24,7 @@ namespace Planit.Automation.TeseCases
         public void TestCase()
         {
             // MouseOver To Tool tip and Validating with Expected ToolTip text
-            RunStep(() => { HomePage.MoveGetToolTip().Should().Equals(Parameter.Get<string>("TooTip")); },
+            RunStep(() => { HomePage.MoveGetToolTip().Should().Equals(Parameter.Get<string>("TooTip1")); },
             "Hover and Verify Tool tip");  
 
             //Enter Search criteria 

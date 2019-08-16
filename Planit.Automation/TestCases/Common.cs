@@ -10,6 +10,7 @@ using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Reporter.Configuration;
 using NUnit.Framework.Interfaces;
 using System.IO;
+using System.Text;
 
 namespace Planit.Automation.TestCases
 {
@@ -83,7 +84,7 @@ namespace Planit.Automation.TestCases
         [SetUp]
         public void Initialize()
         {
-            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+            test = extent.CreateTest(TestContext.CurrentContext.Test.Name+"123");
 
             // Collecting the Parmaeters
             /// <param name="fileName">Name of the parameter xml file.</param>
@@ -107,12 +108,16 @@ namespace Planit.Automation.TestCases
             var stacktrace = string.IsNullOrEmpty(TestContext.CurrentContext.Result.StackTrace)
                     ? ""
                     : string.Format("{0}", TestContext.CurrentContext.Result.StackTrace);
+            var errorMessage = TestContext.CurrentContext.Result.Message;
             Status logstatus;
 
             switch (status)
                 {
                 case TestStatus.Failed:
                     logstatus = Status.Fail;
+                    string screenShotPath = SaveScreenShot(TestContext.CurrentContext.Test.Name);
+                    test.Log(logstatus, stacktrace + errorMessage);
+                    test.Log(logstatus, "Snapshot below: " + test.AddScreenCaptureFromPath(screenShotPath));
                     break;
                 case TestStatus.Inconclusive:
                     logstatus = Status.Warning;
@@ -132,6 +137,23 @@ namespace Planit.Automation.TestCases
         #endregion
 
         #region methods
+        private string SaveScreenShot(string screenshotFirstName)
+        {
+            var folderLocation =  Path.Combine("C:\\evidence\\screenshots", "testresults" + DateTime.Now.ToString("yyyyMMdd"));
+            if (!Directory.Exists(folderLocation))
+            {
+                Directory.CreateDirectory(folderLocation);
+            }
+            var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+            var filename = new StringBuilder(folderLocation);
+            filename.Append(screenshotFirstName);
+            filename.Append(DateTime.Now.ToString("dd-mm-yyyy HH_mm_ss"));
+            filename.Append(".png");
+
+            filename = filename.Replace('|', ' ').Replace('}', ' ');
+            screenshot.SaveAsFile(filename.ToString(), ScreenshotImageFormat.Png);
+            return filename.ToString();
+        }
         public void RunStep(Action action, string stepInfo)
         {
             try

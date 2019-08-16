@@ -53,7 +53,7 @@
           </li>
             <li class="m-r-10">
                 <a href="#">
-                    <span class="badge badge-primary">30-01-2019 08:55:00</span>
+                    <span class="badge badge-primary">8/16/2019 9:18:01 PM</span>
                 </a>
             </li>
         </ul>
@@ -108,7 +108,7 @@
 											<i class="fa fa-exclamation-circle"></i>
 										</a>
 										<ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a status="pass" class="dropdown-item" href="#"><span>Pass</span><span class="status success pull-right"></span></a>																																																																		<div class="dropdown-divider"></div>
+											<a status="fail" class="dropdown-item" href="#"><span>Fail</span><span class="status danger pull-right"></span></a>																																																							<div class="dropdown-divider"></div>
 											<a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
 										</ul>
 									</li>
@@ -116,25 +116,25 @@
                             </div>
                             <div class="test-list-wrapper scrollable">
                                 <ul class="test-list-item">
-										<li class="test-item" status="pass" author="" device="" tag=""> 
-											<div class="status-avatar pass-bg">
-												<i class="fa fa-check text-white"></i>
+										<li class="test-item" status="fail" author="" device="" tag=""> 
+											<div class="status-avatar fail-bg">
+												<i class="fa fa-times text-white"></i>
 											</div>
 											<div class="open-test">
 												<div class="test-detail"> 
-													<p class="name">TestCase</p> 
-													<p class="duration text-sm">0h:0m:26s+591ms</p> 
-													<span class="datetime">08:55:00 AM</span>
+													<p class="name">TestCase123</p> 
+													<p class="duration text-sm">0h:3m:28s+180ms</p> 
+													<span class="datetime">21:18:01 PM</span>
 												</div>
 											</div>
 											<div class="test-contents d-none">
 												<div class="detail-head">
 													<div class="p-v-10 d-inline-block">	
 														<div class="info">
-															<h5 class="test-status text-pass">TestCase</h5>
-															<span class='badge badge-success'>30-01-2019 08:55:00</span>
-															<span class='badge badge-danger'>30-01-2019 08:55:27</span>
-															<span class='badge badge-default'>0h:0m:26s+591ms</span>
+															<h5 class="test-status text-fail">TestCase123</h5>
+															<span class='badge badge-success'>8/16/2019 9:18:01 PM</span>
+															<span class='badge badge-danger'>8/16/2019 9:21:29 PM</span>
+															<span class='badge badge-default'>0h:3m:28s+180ms</span>
 														</div>
 																											</div>
 												</div>
@@ -149,80 +149,61 @@
 	<tbody>
 			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>08:55:11</td>
+				<td>21:19:11</td>
 				<td>
 Step : Hover and Verify Tool tip									</td>
 			</tr>
 			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>08:55:16</td>
+				<td>21:19:39</td>
 				<td>
 Step : Populate Search Criteria									</td>
 			</tr>
 			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>08:55:26</td>
+				<td>21:21:07</td>
 				<td>
 Step : Book ticket									</td>
 			</tr>
 			<tr class="event-row">
-				<td><i class="fa fa-check text-pass"></i></td>
-				<td>08:55:26</td>
+				<td><i class="fa fa-times text-fail"></i></td>
+				<td>21:21:29</td>
 				<td>
-** Source Matched => Hyderabad **									</td>
+at Planit.Automation.TestCases.Common.RunStep(Action action, String stepInfo) in C:\Users\User\source\repos\AbhiBus\Planit.Automation\TestCases\Common.cs:line 170
+   at Planit.Automation.TeseCases.Test.TestCase() in C:\Users\User\source\repos\AbhiBus\Planit.Automation\TestCases\Test.cs:line 37System.Exception : Exception : Could not find element by: By.XPath: //div[@class='detailjrny'][1]									</td>
 			</tr>
 			<tr class="event-row">
-				<td><i class="fa fa-check text-pass"></i></td>
-				<td>08:55:26</td>
+				<td><i class="fa fa-times text-fail"></i></td>
+				<td>21:21:29</td>
 				<td>
-** Boarding Matched => L.B Nagar **									</td>
+Snapshot below: AventStack.ExtentReports.ExtentTest									</td>
 			</tr>
 			<tr class="event-row">
-				<td><i class="fa fa-check text-pass"></i></td>
-				<td>08:55:26</td>
+				<td><i class="fa fa-times text-fail"></i></td>
+				<td>21:21:29</td>
 				<td>
-Step : Validate Source Details									</td>
-			</tr>
-			<tr class="event-row">
-				<td><i class="fa fa-check text-pass"></i></td>
-				<td>08:55:27</td>
-				<td>
-** Destination Matched => Bangalore **									</td>
-			</tr>
-			<tr class="event-row">
-				<td><i class="fa fa-check text-pass"></i></td>
-				<td>08:55:27</td>
-				<td>
-** Boarding Matched => Majestic **									</td>
-			</tr>
-			<tr class="event-row">
-				<td><i class="fa fa-check text-pass"></i></td>
-				<td>08:55:27</td>
-				<td>
-Step : Validate Return Details									</td>
-			</tr>
-			<tr class="event-row">
-				<td><i class="fa fa-check text-pass"></i></td>
-				<td>08:55:27</td>
-				<td>
-** Total Fair Amount:[2321.7] Matched with SumFiar:[2321.7] **									</td>
-			</tr>
-			<tr class="event-row">
-				<td><i class="fa fa-check text-pass"></i></td>
-				<td>08:55:27</td>
-				<td>
-Step : Validate Payment Details on Payment Page									</td>
-			</tr>
-			<tr class="event-row">
-				<td><i class="fa fa-check text-pass"></i></td>
-				<td>08:55:27</td>
-				<td>
-Test ended with Pass									</td>
+Test ended with Fail   at Planit.Automation.TestCases.Common.RunStep(Action action, String stepInfo) in C:\Users\User\source\repos\AbhiBus\Planit.Automation\TestCases\Common.cs:line 170
+   at Planit.Automation.TeseCases.Test.TestCase() in C:\Users\User\source\repos\AbhiBus\Planit.Automation\TestCases\Test.cs:line 37									</td>
 			</tr>
 	</tbody>
 </table>
 
 												</div>    
+												<div class="detail-foot">
+													<ul class="attachments">
+														<li>
+															<a href="C:\evidence\screenshots\testresults20190816TestCase16-21-2019 21_21_28.png" data-featherlight="image">
+																<div class="file-icon">
+																	<i class="fa fa-file-image-o"></i> 
+																</div>
+																<div class="file-info">
+		                                                				<span class="file-name">testresults20190816TestCase16-21-2019 21_21_28.png</span>
+		                                                    			<span class="file-size"> 135917Kb</span>
+																</div>
+															</a>
+														</li>
+													</ul>
+												</div>
 											</div>
 										</li>
                                 </ul>    
